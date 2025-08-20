@@ -1,0 +1,40 @@
+# Archivo de configuración para GitHub Copilot
+# Define qué archivos y carpetas debe ignorar Copilot
+
+# Estructura de carpetas protegidas - NO EDITAR
+Library/
+Logs/
+Temp/
+UserSettings/
+ProjectSettings/
+Packages/
+
+# Archivos de configuración de Unity - NO EDITAR
+*.meta
+*.asset
+*.unity
+*.prefab
+*.mat
+*.controller
+*.anim
+*.playable
+
+# Archivos de proyecto - NO EDITAR
+*.csproj
+*.sln
+*.userprefs
+*.pidb
+*.suo
+*.user
+*.unityproj
+*.booproj
+
+# Carpetas de art y recursos - NO EDITAR
+Assets/Art/
+Assets/Prefab/
+Assets/Scenes/
+Assets/ScriptableObjects/
+Assets/TextMesh Pro/
+
+# Solo permitir edición en Scripts específicos
+# Assets/Scripts/ se permite pero con restricciones

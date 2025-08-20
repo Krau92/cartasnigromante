@@ -1,0 +1,49 @@
+{
+    // Configuración específica del workspace para GitHub Copilot
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        // Restricciones específicas de Copilot para este proyecto
+        "github.copilot.advanced": {
+            "file.creationEnabled": false,
+            "folder.creationEnabled": false,
+            "file.deletionEnabled": false,
+            "folder.deletionEnabled": false,
+            "file.renameEnabled": false,
+            "folder.renameEnabled": false
+        },
+        
+        // Solo permitir edición de archivos C# en Scripts
+        "files.associations": {
+            "*.cs": "csharp"
+        },
+        
+        // Proteger archivos críticos
+        "files.readonlyExclude": {
+            "Assets/Scripts/**/*.cs": false
+        },
+        
+        // Configuración de explorador para prevenir cambios accidentales
+        "explorer.confirmDragAndDrop": true,
+        "explorer.confirmDelete": true,
+        
+        // Deshabilitar comandos peligrosos
+        "terminal.integrated.commandsToSkipShell": [
+            "workbench.action.files.newFile",
+            "workbench.action.files.newFolder",
+            "workbench.action.files.delete"
+        ]
+    },
+    
+    // Extensiones recomendadas para desarrollo Unity seguro
+    "extensions": {
+        "recommendations": [
+            "visualstudiotoolsforunity.vstuc",
+            "github.copilot",
+            "ms-dotnettools.csharp"
+        ]
+    }
+}

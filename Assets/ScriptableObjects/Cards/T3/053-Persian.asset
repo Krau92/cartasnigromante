@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a361f2d918a6be448ea31910c6b3fe3, type: 3}
+  m_Name: 053-Persian
+  m_EditorClassIdentifier: 
+  cardName: Persian
+  basePE: 0
+  basePV: 60
+  cardTier: {fileID: 21300000, guid: 6e94241029d72404cb747d8f1d3d4a98, type: 3}
+  cardImage: {fileID: 21300000, guid: 8eb3794a3822f354484b789dca076984, type: 3}
+  cardBase: {fileID: 21300000, guid: 9ed6c83282bafd249821f613c25eeb6f, type: 3}
+  attack1:
+    attackName: "Ara\xF1azo"
+    description: 
+    baseDamage: 10
+    valorDados: 01000000030000000400000006000000
+    statusAilments: []
+    statusEnhacements: []
+  attack2:
+    attackName: Cuchillada
+    description: 
+    baseDamage: 20
+    valorDados: 05000000
+    statusAilments: []
+    statusEnhacements: []

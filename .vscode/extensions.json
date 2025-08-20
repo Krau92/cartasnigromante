@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "visualstudiotoolsforunity.vstuc",
+        "github.copilot",
+        "ms-dotnettools.csharp"
+    ],
+    
+    // Configuración específica para restricciones de Copilot
+    "unwantedRecommendations": [
+        "ms-vscode.vscode-json",
+        "ms-vscode.references-view"
+    ]
+}

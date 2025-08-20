@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a361f2d918a6be448ea31910c6b3fe3, type: 3}
+  m_Name: 049-Venomoth
+  m_EditorClassIdentifier: 
+  cardName: Venomoth
+  basePE: 0
+  basePV: 70
+  cardTier: {fileID: 21300000, guid: 6e94241029d72404cb747d8f1d3d4a98, type: 3}
+  cardImage: {fileID: 21300000, guid: a198336b0e467b440a478219d3401a07, type: 3}
+  cardBase: {fileID: 21300000, guid: e828e1f5f350c0446917eb83630b4ea8, type: 3}
+  attack1:
+    attackName: Viento plata
+    description: 
+    baseDamage: 10
+    valorDados: 010000000200000005000000
+    statusAilments: []
+    statusEnhacements: []
+  attack2:
+    attackName: Polvo veneno
+    description: Envenena al enemigo restando 10 puntos de vitalidad cada turno
+    baseDamage: 0
+    valorDados: 02000000
+    statusAilments:
+    - name: Veneno
+      description: 
+      accumulation: 1
+      applyToSelf: 0
+      ailment: 0
+    statusEnhacements: []

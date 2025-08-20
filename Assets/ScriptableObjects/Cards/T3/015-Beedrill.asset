@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a361f2d918a6be448ea31910c6b3fe3, type: 3}
+  m_Name: 015-Beedrill
+  m_EditorClassIdentifier: 
+  cardName: Beedrill
+  basePE: 0
+  basePV: 70
+  cardTier: {fileID: 21300000, guid: 6e94241029d72404cb747d8f1d3d4a98, type: 3}
+  cardImage: {fileID: 21300000, guid: 1ff7f07fffee0b345bafb2cb7f682a95, type: 3}
+  cardBase: {fileID: 21300000, guid: 42ab006a655647940973e2877cc1300d, type: 3}
+  attack1:
+    attackName: Puya nociva
+    description: 
+    baseDamage: 10
+    valorDados: 06000000
+    statusAilments: []
+    statusEnhacements: []
+  attack2:
+    attackName: Doble ataque
+    description: Se puede utilizar una segunda vez de forma gratuita
+    baseDamage: 10
+    valorDados: 02000000
+    statusAilments: []
+    statusEnhacements: []
