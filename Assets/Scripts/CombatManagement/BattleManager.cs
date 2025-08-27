@@ -8,9 +8,15 @@ public class BattleManager : MonoBehaviour
     private Card selectedCard; // Carta seleccionada
     private AttackData selectedAttack; // Ataque seleccionado
 
-    [SerializeField] private Card objectiveCard; // Carta objetivo
-    private List<CardHealth> objectivesCardsHealth = new();
+    [SerializeField] private Card selectedObjectiveCard; // Carta objetivo
     [SerializeField] private Dice selectedDice; //? Dados seleccionados??? en plural?
+
+    //Manager del ataque
+    private AttackData executedAttack;
+    private Card casterCard;
+    private CardHealth casterCardHealth;
+    private List<CardHealth> objectivesCardsHealth = new();
+    //private List<Dice> usedDices = new(); //? De momento solo se añadirá uno cada vez hasta que se implementen ataques diferentes
 
     public enum BattlePhases //!Más adelante pensar donde gestiono los estados alterados (pueden ser dos fases diferentes, una para player otra para enemy)
     {
@@ -100,8 +106,14 @@ public class BattleManager : MonoBehaviour
         selectedAttack = attack;
     }
 
+    //Método para obtener el ataque seleccionado
+    public AttackData GetSelectedAttack()
+    {
+        return selectedAttack;
+    }
+
     //Método que devuelve si hay un ataque seleccionado
-    public Card GetCardSelected()
+    public Card GetSelectedCard()
     {
         return selectedCard;
     }
@@ -127,6 +139,12 @@ public class BattleManager : MonoBehaviour
         CheckDiceAssignment(); // Comprobar si el dado seleccionado es válido
     }
 
+    //Método para obtener el dado seleccionado
+    public Dice GetSelectedDice()
+    {
+        return selectedDice;
+    }
+
     //Método para comprobar si el dado seleccionado es válido
     private void CheckDiceAssignment()
     {
@@ -135,6 +153,8 @@ public class BattleManager : MonoBehaviour
             Debug.LogWarning("No card or dice selected.");
             return;
         }
+
+        //!Se deberá modificar cuando se añadan ataques de mas de un dado
 
         foreach (int diceValue in selectedAttack.valorDados)
         {
@@ -162,20 +182,30 @@ public class BattleManager : MonoBehaviour
     {
         if (selectedAttack != null && selectedCard != null && selectedDice != null)
         {
-            //!Falta checkeo de objetivo válido
-            objectiveCard = card; // Asignar la carta objetivo
+            //!Falta checkeo de objetivo válido y cambiar la gestión de ejecución de ataque
+            selectedObjectiveCard = card; // Asignar la carta objetivo
+                                          //! De momento llamo directamente a asignar la lista de objetivos, más adelante saltar este paso si el objetivo es todos, etc.
+            AssignAttackData(selectedAttack, selectedCard, objectivesCardsHealth);
             ExecuteAttack(); // Ejecutar el ataque
         }
 
+    }
+
+    //Método para asignar los datos correctos del ataque a ejecutar
+    public void AssignAttackData(AttackData attack, Card caster, List<CardHealth> objectives)
+    {
+        executedAttack = attack;
+        casterCard = caster;
+        casterCardHealth = caster.cardHealth;
+        objectivesCardsHealth = objectives;
     }
 
     //Método para ejecutar el ataque
     void ExecuteAttack()
     {
         selectedDice.UseDice(); // Marcar el dado como usado
-        selectedAttack.ExecuteAction(objectiveCard, selectedCard); // Ejecutar el ataque
+        selectedAttack.ExecuteAction(casterCard); // Ejecutar el ataque
         ResetAttackManaging(); // Reiniciar las selecciones después del ataque
-        GameManager.instance.UnzoomCard(); // Quitar el zoom de la carta
     }
 
 
@@ -190,7 +220,12 @@ public class BattleManager : MonoBehaviour
 
         selectedCard = null; // Limpiar la referencia a la carta seleccionada
         selectedAttack = null; // Limpiar la referencia al ataque seleccionado
-        objectiveCard = null; // Limpiar la referencia a la carta objetivo
+        selectedObjectiveCard = null; // Limpiar la referencia a la carta objetivo
+        //usedDices.Clear(); // Limpiar la lista de dados usados
+        objectivesCardsHealth.Clear(); // Limpiar la lista de salud de cartas objetivo
+        casterCardHealth = null; // Limpiar la referencia a la salud de la carta lanzadora
+        executedAttack = null; // Limpiar la referencia al ataque ejecutado
+        GameManager.instance.UnzoomCard(); // Quitar el zoom de la carta
     }
 
     #endregion
@@ -200,7 +235,7 @@ public class BattleManager : MonoBehaviour
     //Método para hacer daño directo a cartas (direct damage)
     public void ApplyObjectivesDirectDamage()
     {
-        if (objectiveCard != null && selectedAttack != null)
+        if (selectedObjectiveCard != null && selectedAttack != null)
         {
             objectivesCardsHealth.Clear();
             //!Obtener y asignar lista de objetivos con el manager de objetivos
@@ -226,7 +261,7 @@ public class BattleManager : MonoBehaviour
     //Método para aplicar daño a cartas (daño basico)
     public void ApplyObjectivesDamage()
     {
-        if (objectiveCard != null && selectedAttack != null)
+        if (selectedObjectiveCard != null && selectedAttack != null)
         {
             objectivesCardsHealth.Clear();
             //!Obtener y asignar lista de objetivos con el manager de objetivos
@@ -252,7 +287,7 @@ public class BattleManager : MonoBehaviour
     //Método para curar daño a la carta objetivo (heal)
     public void ApplyHealObjectivesDamage()
     {
-        if (objectiveCard != null && selectedAttack != null)
+        if (selectedObjectiveCard != null && selectedAttack != null)
         {
             objectivesCardsHealth.Clear();
             //!Obtener y asignar lista de objetivos con el manager de objetivos

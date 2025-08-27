@@ -16,18 +16,18 @@ public class AttackData
     public List<StatusAilment> userStatusAilments = new();
     public List<int> valorDados; // Valores de los dados para el ataque
 
-    public void ExecuteAction(Card objectiveCard, Card userCard)
+    public void ExecuteAction(Card userCard)
     {
         InitializeAttackData(userCard);
         //!FALTA APLICACIÓN DE MODIFICADORES AL ATTACK DATA
-
-        CardHealth objectiveCardHealth = objectiveCard.cardHealth;
-        CardHealth userCardHealth = userCard.cardHealth;
 
         foreach (var effect in battleEffects)
         {
             effect.ExecuteEffect();
         }
+
+        //!PENSAR EN LA GESTIÓN DE ESTADOS ALTERADOS
+        /*
         foreach (var ailment in objectiveStatusAilments)
         {
             ailment.ApplyAilment(objectiveCardHealth);
@@ -36,6 +36,7 @@ public class AttackData
         {
             ailment.ApplyAilment(userCardHealth);
         }
+        */
     }
 
     public void InitializeAttackData(Card userCard)
