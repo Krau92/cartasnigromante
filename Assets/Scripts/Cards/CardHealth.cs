@@ -61,6 +61,24 @@ public class CardHealth : MonoBehaviour
     //Método para recibir daño
     public void TakeDamage(int damage)
     {
+        int remainingDamage = damage;
+        if (currentPE > 0)
+        {
+            remainingDamage -= currentPE;
+            currentPE -= damage;
+            remainingDamage = Mathf.Max(0, remainingDamage);
+            currentPE = Mathf.Max(0, currentPE);
+        }
+
+        currentPV -= remainingDamage;
+        if (currentPV < 0) currentPV = 0; // Asegurarse de que no sea negativo
+        UpdateBars();
+        CheckDeath();
+    }
+
+    //Método para recibir daño directo
+    public void TakeDirectDamage(int damage)
+    {
         currentPV -= damage;
         if (currentPV < 0) currentPV = 0; // Asegurarse de que no sea negativo
         UpdateBars();

@@ -186,10 +186,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleCard (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4571889931992711737, guid: 0eb6f3563c12e6f479e9474de1291f2d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571889931992711737, guid: 0eb6f3563c12e6f479e9474de1291f2d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571889931992711737, guid: 0eb6f3563c12e6f479e9474de1291f2d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6009495146511423590, guid: 0eb6f3563c12e6f479e9474de1291f2d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7406553725349861092, guid: 0eb6f3563c12e6f479e9474de1291f2d, type: 3}
+      propertyPath: cardSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 3afb2ad53e4f9c3438e14dcb58d98bd5, type: 2}
     - target: {fileID: 7406553725349861092, guid: 0eb6f3563c12e6f479e9474de1291f2d, type: 3}
       propertyPath: isEnemyCard
       value: 1
@@ -431,6 +447,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7406553725349861092, guid: 0eb6f3563c12e6f479e9474de1291f2d, type: 3}
+      propertyPath: cardSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 9e8b6c0fc28a9184a9660fe36b6c0226, type: 2}
     - target: {fileID: 7406553725349861092, guid: 0eb6f3563c12e6f479e9474de1291f2d, type: 3}
       propertyPath: isEnemyCard
       value: 1

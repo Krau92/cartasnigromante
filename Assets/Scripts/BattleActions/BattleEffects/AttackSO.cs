@@ -8,7 +8,7 @@ public class AttackSO : ScriptableObject
     [SerializeField] private string attackName;
     [TextArea]
     [SerializeField] private string description;
-    [SerializeField] private int baseMultiplier;
+    [SerializeField] private float baseMultiplier;
     [SerializeField] private TargetType targetType;
     [SerializeField] private List<int> valorDados = new List<int>();
     [SerializeField] private List<BattleEffect> battleEffects = new List<BattleEffect>();
@@ -18,7 +18,7 @@ public class AttackSO : ScriptableObject
     // Getters públicos de solo lectura
     public string AttackName => attackName;
     public string Description => description;
-    public int BaseMultiplier => baseMultiplier;
+    public float BaseMultiplier => baseMultiplier;
     public TargetType Target => targetType;
     public List<int> GetValorDados() { return valorDados; }
     public List<BattleEffect> GetBattleEffects() { return battleEffects; }

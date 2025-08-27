@@ -9,7 +9,7 @@ public class AttackData
     public string description;
     bool isSelectable;
 
-    TargetType targetType;
+    public TargetType targetType;
     public List<BattleEffect> battleEffects = new();
 
     public List<StatusAilment> objectiveStatusAilments = new();
@@ -26,7 +26,7 @@ public class AttackData
 
         foreach (var effect in battleEffects)
         {
-            effect.ExecuteEffect(this, objectiveCard, userCard);
+            effect.ExecuteEffect();
         }
         foreach (var ailment in objectiveStatusAilments)
         {
@@ -40,7 +40,7 @@ public class AttackData
 
     public void InitializeAttackData(Card userCard)
     {
-        power = userCard.Power * battleAction.BaseMultiplier; // Asignar el poder del ataque
+        power = (int)(userCard.Power * battleAction.BaseMultiplier); // Asignar el poder del ataque
         attackName = battleAction.AttackName; // Asignar el nombre del ataque
         description = battleAction.Description; // Asignar la descripción del ataque
         battleEffects = battleAction.GetBattleEffects(); // Asignar los efectos del ataque

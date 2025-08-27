@@ -56,36 +56,26 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Cardsv2.sln",
-    
-    // Configuración de GitHub Copilot para restricciones
+    "dotnet.defaultSolution": "CartasNigromante.sln",
     "github.copilot.advanced": {
         "file.editsEnabled": true,
         "file.creationEnabled": false
     },
-    
-    // Configuraciones adicionales de seguridad para Copilot
     "github.copilot.enable": {
         "*": true,
         "plaintext": false,
         "markdown": false,
         "scminput": false
     },
-    
-    // Restringir herramientas de edición masiva
     "workbench.editorAssociations": {
         "*.meta": "default"
     },
-    
-    // Configuraciones de protección de archivos importantes
     "files.readonlyInclude": {
         "**/ProjectSettings/**": true,
         "**/Library/**": true,
         "**/Packages/**": true,
         "**/*.meta": false
     },
-    
-    // Deshabilitar creación automática de archivos
     "explorer.autoReveal": false,
     "files.autoSave": "afterDelay"
 }

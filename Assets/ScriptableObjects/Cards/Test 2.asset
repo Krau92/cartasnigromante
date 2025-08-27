@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a361f2d918a6be448ea31910c6b3fe3, type: 3}
-  m_Name: Test
+  m_Name: Test 2
   m_EditorClassIdentifier: 
-  cardName: Charizard
-  basePE: 0
+  cardName: Venusaur
+  basePE: 10
   basePV: 120
   cardTier: {fileID: 21300000, guid: 6e94241029d72404cb747d8f1d3d4a98, type: 3}
-  cardImage: {fileID: 21300000, guid: 5c2d908c40c448b4eb592856554dad32, type: 3}
+  cardImage: {fileID: 21300000, guid: 884a908d66a1d2e4a8bc4587dfee8f4d, type: 3}
   cardBase: {fileID: 21300000, guid: e828e1f5f350c0446917eb83630b4ea8, type: 3}
   power: 20
   attacksList:

@@ -1,12 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    //!Añadir al manager de multiobjetivos que devuelva una lista de objetivos
     private DeckManager deckManager; // Referencia al DeckManager
     private Card selectedCard; // Carta seleccionada
     private AttackData selectedAttack; // Ataque seleccionado
 
     [SerializeField] private Card objectiveCard; // Carta objetivo
+    private List<CardHealth> objectivesCardsHealth = new();
     [SerializeField] private Dice selectedDice; //? Dados seleccionados??? en plural?
 
     public enum BattlePhases //!Más adelante pensar donde gestiono los estados alterados (pueden ser dos fases diferentes, una para player otra para enemy)
@@ -64,7 +67,7 @@ public class BattleManager : MonoBehaviour
 
 
 
-    #region Player attack managing
+    #region Managing player attack
 
     //Método para seleccionar una carta
     public void SelectCard(Card card)
@@ -188,6 +191,88 @@ public class BattleManager : MonoBehaviour
         selectedCard = null; // Limpiar la referencia a la carta seleccionada
         selectedAttack = null; // Limpiar la referencia al ataque seleccionado
         objectiveCard = null; // Limpiar la referencia a la carta objetivo
+    }
+
+    #endregion
+
+    #region  Managing attack effects
+
+    //Método para hacer daño directo a cartas (direct damage)
+    public void ApplyObjectivesDirectDamage()
+    {
+        if (objectiveCard != null && selectedAttack != null)
+        {
+            objectivesCardsHealth.Clear();
+            //!Obtener y asignar lista de objetivos con el manager de objetivos
+            //objectivesCardHealth = objectivesManager.ObtainObjectives(selectedAttack);
+
+            foreach (var objective in objectivesCardsHealth)
+            {
+                objective.TakeDirectDamage(selectedAttack.power);
+            }
+        }
+    }
+
+    //Método para hacer auto daño directo
+    public void ApplySelfDirectDamage()
+    {
+        if (selectedCard != null && selectedAttack != null)
+        {
+            CardHealth selectedCardHealth = selectedCard.cardHealth;
+            selectedCardHealth.TakeDirectDamage(selectedAttack.power);
+        }
+    }
+
+    //Método para aplicar daño a cartas (daño basico)
+    public void ApplyObjectivesDamage()
+    {
+        if (objectiveCard != null && selectedAttack != null)
+        {
+            objectivesCardsHealth.Clear();
+            //!Obtener y asignar lista de objetivos con el manager de objetivos
+            //objectivesCardHealth = objectivesManager.ObtainObjectives(selectedAttack);
+
+            foreach (var objective in objectivesCardsHealth)
+            {
+                objective.TakeDamage(selectedAttack.power);
+            }
+        }
+    }
+
+    //Método para hacer daño a la carta seleccionada (selfdamage)
+    public void ApplySelfDamage()
+    {
+        if (selectedCard != null && selectedAttack != null)
+        {
+            CardHealth selectedCardHealth = selectedCard.cardHealth;
+            selectedCardHealth.TakeDamage(selectedAttack.power);
+        }
+    }
+
+    //Método para curar daño a la carta objetivo (heal)
+    public void ApplyHealObjectivesDamage()
+    {
+        if (objectiveCard != null && selectedAttack != null)
+        {
+            objectivesCardsHealth.Clear();
+            //!Obtener y asignar lista de objetivos con el manager de objetivos
+            //objectivesCardHealth = objectivesManager.ObtainObjectives(selectedAttack);
+
+            foreach (var objective in objectivesCardsHealth)
+            {
+                objective.Heal(selectedAttack.power);
+            }
+        }
+    }
+
+    //Método para autocurarse
+    public void ApplySelfHeal()
+    {
+        if (selectedCard != null && selectedAttack != null)
+        {
+            CardHealth selectedCardHealth = selectedCard.cardHealth;
+            selectedCardHealth.Heal(selectedAttack.power);
+        }
     }
 
     #endregion
