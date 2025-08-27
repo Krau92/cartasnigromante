@@ -4,7 +4,23 @@ using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
+    public static DeckManager instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     //! FALTA LA LOGICA DE CREAR LOS DECKS + METODOS DE DESBLOQUEAR CARTAS
+    //! Tal vez todo esto va en otra clase llamada diferente. Algo así como Deck Data??
     //? SEPARAR DECKS POR TIERS?
     [SerializeField] private List<CardSO> completeDeckSO;
     [SerializeField] private List<Card> completeDeck;
@@ -12,7 +28,7 @@ public class DeckManager : MonoBehaviour
 
     [SerializeField] private List<Card> unlockedDeck;
 
-    //Decks on game
+    //Decks de cada combate. gestión de los decks de jugador y enemigo
     [SerializeField] private List<Card> playerDeck;
     [SerializeField] private List<Card> enemyDeck;
 
@@ -79,6 +95,18 @@ public class DeckManager : MonoBehaviour
             enemyDeck[i].MoveCardToPosition(cardPositions.GetEnemyCardPosition(enemyDeck, i));
             yield return new WaitForSeconds(0.5f); // Añadir un pequeño retraso para que se vea el movimiento
         }
+    }
+
+    //Método para obtener el mazo del jugador
+    public List<Card> GetPlayerDeck()
+    {
+        return playerDeck;
+    }
+
+    //Método para obtener el mazo del enemigo
+    public List<Card> GetEnemyDeck()
+    {
+        return enemyDeck;
     }
 
 }

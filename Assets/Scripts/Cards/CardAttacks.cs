@@ -61,7 +61,7 @@ public class CardAttacks : MonoBehaviour
     //Método para gestionar la selección de ataque
     public void SelectAttack(int attackNumber)
     {
-        if (BattleManager.instance.GetCardSelected() != this.card)
+        if (BattleManager.instance.GetSelectedCard() != this.card)
         {
             return; // Si ya hay un ataque seleccionado, no hacer nada
         }
