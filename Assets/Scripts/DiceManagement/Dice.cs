@@ -9,7 +9,11 @@ public class Dice : MonoBehaviour
     bool used;
     public bool Used => used; // Propiedad para saber si el dado ha sido usado
     bool locked; //Para bloquear el reroll
-    [SerializeField] private Color selectedColor, unavailableColor, availableColor;
+    public bool Locked => locked; // Propiedad para saber si el dado está bloqueado
+
+
+     //?Debería estar en el manager??? creo que si
+    [SerializeField] private Color selectedColor, unavailableColor, availableColor, lockedColor;
 
     private void Awake()
     {
@@ -47,7 +51,7 @@ public class Dice : MonoBehaviour
     public void ResetDice()
     {
         used = false; // Marcar el dado como no usado
-        locked = false; // Desbloquear el dado
+        UnlockDice(); // Desbloquear el dado por si acaso, normalmente ya debe estarlo
         diceImage.color = availableColor; // Cambiar el color del dado a disponible
     }
 
@@ -56,7 +60,6 @@ public class Dice : MonoBehaviour
     {
         if (used) return; // Si el dado ya ha sido usado, no hacer nada
         diceImage.color = availableColor; // Cambiar el color del dado a disponible
-        ResetDice(); // Reiniciar el estado del dado
     }
 
     //Método para seleccionar el dado
@@ -67,6 +70,30 @@ public class Dice : MonoBehaviour
             EventManager.instance.DiceSelected(this); // Invocar el evento de selección de dado
         }
     }
+
+    //Método para bloquear el dado
+    public void LockDice()
+    {
+        locked = true; // Bloquear el dado para que no pueda ser rolleteado
+
+        //!TEMPORAL
+        diceImage.color = lockedColor; // Cambiar el color del dado a bloqueado
+        //!UI DADO BLOQUEADO
+    }
+
+    //Método para desbloquear el dado
+    public void UnlockDice()
+    {
+        locked = false; // Desbloquear el dado
+
+        //!TEMPORAL
+        if (!used) diceImage.color = availableColor; // Cambiar el color del dado a disponible si no ha sido usado
+        else diceImage.color = unavailableColor; // Cambiar el color del dado a no disponible si ya ha sido usado
+
+        //!UI DADO NORMAL
+    }
+
+    
 
     //Método para marcar el dado como seleccionado
     public void MarkAsSelected()

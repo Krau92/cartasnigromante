@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Collections;
+using System;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -7,6 +9,9 @@ public class BattleManager : MonoBehaviour
     private DeckManager deckManager; // Referencia al DeckManager
     private Card selectedCard; // Carta seleccionada
     private AttackData selectedAttack; // Ataque seleccionado
+    [SerializeField] private int totalRerolls; // Cantidad total de rerolls
+    private int availableRerolls; // Cantidad disponible de rerolls
+    public int AvailableRerolls => availableRerolls; // Propiedad para obtener la cantidad de rerolls disponibles
 
     [SerializeField] private Card selectedObjectiveCard; // Carta objetivo
     [SerializeField] private Dice selectedDice; //? Dados seleccionados??? en plural?
@@ -18,11 +23,12 @@ public class BattleManager : MonoBehaviour
     private List<CardHealth> objectivesCardsHealth = new();
     //private List<Dice> usedDices = new(); //? De momento solo se añadirá uno cada vez hasta que se implementen ataques diferentes
 
-    public enum BattlePhases //!Más adelante pensar donde gestiono los estados alterados (pueden ser dos fases diferentes, una para player otra para enemy)
+    public enum BattlePhases
     {
         DeclaringEnemy,
         PlayerAttack,
-        EnemyAttack
+        EnemyAttack,
+        ApplyEffects
     }
 
     private BattlePhases battlePhase; // Fase de batalla actual
@@ -121,22 +127,59 @@ public class BattleManager : MonoBehaviour
     //Método para seleccionar un dado
     public void SelectDice(Dice dice)
     {
-        if (battlePhase != BattlePhases.PlayerAttack || selectedAttack == null)
+        //Si no se está en la fase de ataque del jugador, no se puede seleccionar ningún dado
+        if (battlePhase != BattlePhases.PlayerAttack)
         {
             selectedDice = null; // Limpiar la referencia al dado seleccionado para evitar problemas
             return;
         }
 
-        if (dice.Used) // Si el dado ya ha sido usado, no hacer nada
-            return;
+        //Permitir seleccionar dados para rerrollear si no hay ataque seleccionado
+        if (selectedAttack.attackName == null && availableRerolls != 0)
+        {
+            if (dice.Used) return; // Si el dado ya ha sido usado, no hacer nada
 
+            //Gestión de bloqueo/desbloqueo del dado
+            if (dice.Locked) dice.UnlockDice();
+            else if (!dice.Locked) dice.LockDice();
+
+            selectedDice = null; // Limpiar la referencia al dado seleccionado para evitar problemas
+            return;
+        }
+
+        //Si no hay ataque seleccionado, no se puede seleccionar ningún dado
+        if (selectedAttack.attackName == null) return; // Si no hay ataque seleccionado, no hacer nada
+
+        //Si ya hay un dado seleccionado, se deselecciona para cambiarlo por el siguiente
         if (selectedDice != null)
-            selectedDice.ResetDice(); // Reiniciar el dado seleccionado
+            selectedDice.DeselectDice(); // Reiniciar el dado seleccionado
 
         selectedDice = dice; // Asignar el dado seleccionado
         selectedDice.MarkAsSelected(); // Marcar el dado como seleccionado
 
         CheckDiceAssignment(); // Comprobar si el dado seleccionado es válido
+    }
+
+    //Método para rerrollear los dados
+    public void RerollDices()
+    {
+        if (availableRerolls > 0)
+        {
+            availableRerolls--; // Disminuir la cantidad de rerolls disponibles
+            DiceManager.instance.RerollDices(); // Llamar al método de rerrollear dados en el DiceManager
+
+        }
+        else
+        {
+            Debug.Log("No hay rerolls disponibles.");
+            //! Añadir lógica para notificar al jugador que no hay rerolls disponibles
+        }
+    }
+
+    //Método para reiniciar los rerolls disponibles
+    public void ResetRerolls()
+    {
+        availableRerolls = totalRerolls;
     }
 
     //Método para obtener el dado seleccionado
@@ -328,25 +371,52 @@ public class BattleManager : MonoBehaviour
         {
             case BattlePhases.DeclaringEnemy:
                 Debug.Log("Enemy is declaring its attack.");
-                NextPhase();
+                StartCoroutine(DeclaringEnemyCoroutine()); // simular la declaración del enemigo
+                
                 break;
 
             case BattlePhases.PlayerAttack:
+                //!Mostrar carteles de interfaz para cada fase
+                ResetRerolls(); // Reiniciar los rerolls disponibles al inicio de la fase de ataque del jugador
+                DiceManager.instance.ResetDices(); // Reiniciar todos los dados antes de rollear
                 DiceManager.instance.RollAllGameDices();
                 //! Mostrar botón de pasar de fase
+
                 break;
 
             case BattlePhases.EnemyAttack:
                 Debug.Log("Enemy attack phase");
                 NextPhase();
                 break;
+            case BattlePhases.ApplyEffects:
+                //Aquí se aplicarán todos los efectos de estado, en aliados y enemigos
+                Debug.Log("Applying effects phase");
+
+                //Por último comprobar si se ha ganado o perdido la partida
+                //!COMPROBAR VICTORIA O DERROTA
+
+                NextPhase();
+                break;
         }
+    }
+
+    //Corutina para simular la declaración del enemigo
+    private IEnumerator DeclaringEnemyCoroutine()
+    {
+        //!IR MOSTRANDO LA DECLARACIÓN DEL ENEMIGO
+        yield return new WaitForSeconds(2f); // Esperar 2 segundos
+        NextPhase();
     }
 
     //Método para pasar a la siguiente fase de batalla
     public void NextPhase()
     {
         battlePhase++;
+        if ((int)battlePhase > Enum.GetValues(typeof(BattlePhases)).Length - 1)
+        {
+            battlePhase = 0; // Volver a la primera fase si se ha superado la última
+        }
+
         ExecutePhase();
     }
     #endregion
