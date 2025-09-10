@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1475b16a2a116694593f1c34905058a4, type: 3}
+  m_Name: NuevoAtaquTest
+  m_EditorClassIdentifier: 
+  attackName: 
+  description: 
+  baseMultiplier: 0
+  targetType: 3
+  valorDados: 01000000020000000500000006000000
+  battleEffects:
+  - {fileID: 11400000, guid: 21f97bd3b97d3dd43b8804d1c35e5597, type: 2}
+  - {fileID: 11400000, guid: af26cc570d09da04ca3f37d8240de62f, type: 2}
+  objectiveStatusAilments: []
+  userStatusAilments: []
