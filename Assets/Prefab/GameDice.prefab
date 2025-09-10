@@ -61,8 +61,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 0
   selectedColor: {r: 0, g: 0.8113208, b: 0.14672294, a: 1}
-  unavailableColor: {r: 0.18490559, g: 0.18490559, b: 0.18490559, a: 1}
+  unavailableColor: {r: 0.21568629, g: 0.21568629, b: 0.21568629, a: 0.7607843}
   availableColor: {r: 1, g: 1, b: 1, a: 1}
+  lockedColor: {r: 0.8245078, g: 1, b: 0.27735847, a: 1}
 --- !u!114 &1741679524389508744
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -45,16 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799300355f965d747935ce642444f6d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckManager: {fileID: 0}
-  selectedCard: {fileID: 0}
-  objectiveCard: {fileID: 0}
-  selectedAttack:
-    attackName: 
-    description: 
-    baseDamage: 0
-    valorDados: 
-    statusAilments: []
-    statusEnhacements: []
+  totalRerolls: 2
+  selectedObjectiveCard: {fileID: 0}
+  selectedDice: {fileID: 0}
 --- !u!1 &1250080192751410483
 GameObject:
   m_ObjectHideFlags: 0

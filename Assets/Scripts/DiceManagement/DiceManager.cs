@@ -33,17 +33,6 @@ public class DiceManager : MonoBehaviour
         CreateGameDices(dicesAmount);
     }
 
-    //!TESTEO
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R)) // Si se pulsa la tecla R, se lanzan todos los dados
-        {
-            RollAllGameDices();
-        }
-    }
-
-    //!FIN TESTEO
-
     //Método para crear un dado
     public void CreateCardAttackDices(Transform parent, List<int> values)
     {
@@ -173,15 +162,35 @@ public class DiceManager : MonoBehaviour
         }
     }
 
-    //Método para deseleccionar los dados que no esten usados
-    public void DeselectUnusedDices()
+    //Método de rerollear los dados que no esten bloqueados ni usados
+    public void RerollDices()
     {
         foreach (Dice dice in gameDices)
         {
-            if (!dice.Used)
+            if (!dice.Locked && !dice.Used)
             {
-                dice.ResetDice(); // Reiniciar el dado si no ha sido usado
+                dice.RollDice(); // Rollear el dado si no está bloqueado ni usado
             }
+            if (BattleManager.instance.AvailableRerolls <= 0) dice.UnlockDice(); // Desbloquear el dado si ya no quedan rerolls disponibles
+        }
+    }
+
+    //Método para deseleccionar los dados que no esten usados
+    public void ResetDices()
+    {
+        
+        foreach (Dice dice in gameDices)
+        {
+            dice.ResetDice(); // Reiniciar el dado si no ha sido usado
+        }
+    }
+
+    //Método para desbloquear todos los dados
+    public void UnlockAllDices()
+    {
+        foreach (Dice dice in gameDices)
+        {
+            dice.UnlockDice(); // Desbloquear el dado
         }
     }
 
