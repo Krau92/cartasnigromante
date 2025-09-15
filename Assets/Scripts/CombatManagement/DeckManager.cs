@@ -97,6 +97,15 @@ public class DeckManager : MonoBehaviour
         }
     }
 
+    //Método para reactivar todas las cartas del mazo del jugador
+    public void ReactivatePlayerDeck()
+    {
+        foreach (Card card in playerDeck)
+        {
+            card.ReactivateCard();
+        }
+    }
+
     //Método para obtener el mazo del jugador
     public List<Card> GetPlayerDeck()
     {

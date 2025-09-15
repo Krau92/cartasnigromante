@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CardAttacks : MonoBehaviour
 {
+    //!Revisar, pinta feo?
     [SerializeField] private BoxCollider2D attack1Collider;
     [SerializeField] private BoxCollider2D attack2Collider;
-    AttackData[] attacks = new AttackData[2]; // Array para almacenar los ataques de la carta
+    List<AttackData> attacks = new List<AttackData>(); //Lista para almacenar los ataques de la carta
     [SerializeField] private Card card;
 
     //Suscribirse a los eventos de la carta
@@ -61,12 +63,12 @@ public class CardAttacks : MonoBehaviour
     //Método para gestionar la selección de ataque
     public void SelectAttack(int attackNumber)
     {
-        if (BattleManager.instance.GetSelectedCard() != this.card)
+        if (BattleManager.instance.selectedCard != this.card)
         {
             return; // Si ya hay un ataque seleccionado, no hacer nada
         }
 
-        EventManager.instance.AttackSelected(attacks[attackNumber - 1]); // Llama al evento de selección de ataque
+        EventManager.instance.AttackSelected(attacks[attackNumber - 1]); //Esto no se si sigue siendo necesario....
         card.UnmarkAttacks(); // Desmarca los ataques de la carta
         card.MarkAttack(attackNumber); // Marca el ataque seleccionado
     }
@@ -76,8 +78,7 @@ public class CardAttacks : MonoBehaviour
     {
         if (card != null)
         {
-            attacks[0] = card.GetAttack(1); // Asignar el primer ataque de la carta
-            attacks[1] = card.GetAttack(2); // Asignar el segundo ataque de la carta
+            attacks = card.attacks;
         }
     }
 

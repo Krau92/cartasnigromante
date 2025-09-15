@@ -171,7 +171,6 @@ public class DiceManager : MonoBehaviour
             {
                 dice.RollDice(); // Rollear el dado si no está bloqueado ni usado
             }
-            if (BattleManager.instance.AvailableRerolls <= 0) dice.UnlockDice(); // Desbloquear el dado si ya no quedan rerolls disponibles
         }
     }
 

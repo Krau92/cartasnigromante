@@ -8,16 +8,16 @@ public class Card : MonoBehaviour
 {
     //Referencia a la cartaSO que genera esta carta
     [SerializeField] private CardSO cardSO;
-    int power;
+    int powerModifier;
     //Getter de power
-    public int Power => power;
-    private List<AttackData> attacksList = new(); // Lista de ataques para la carta, cada uno avisa si es seleccionable
-    private AttackData attack1;
-    private AttackData attack2;
+    public int PowerModifier => powerModifier;
+    private List<AttackData> attacksList = new(); // Lista de posibles ataques para la carta, cada uno avisa si es seleccionable
+    public List<AttackData> attacks { get; private set; } = new(); //Lista de los ataques asignados a la carta
 
     public CardHealth cardHealth; // Referencia a la salud de la carta
     [SerializeField] private float zoomValue = 1.5f; // Valor de zoom para la carta
-    [SerializeField] bool isEnemyCard; // Indica si la carta es del enemigo
+    public bool isEnemyCard;
+    public bool isUsed { get; private set; } // Indica si la carta ya ha sido usada en el turno actual
 
     [Space(10)] //Espacio para separar visualmente
 
@@ -28,6 +28,7 @@ public class Card : MonoBehaviour
     // De momento no hay ningún caso en que se vea la parte trasera de la carta
     // [SerializeField] private Image cardBack;
     [SerializeField] private Image cardImage;
+    [SerializeField] private SpriteRenderer colorMask; //Para indicar si esta muerta, usada, etc.
 
     [Header("Header components")]
     [SerializeField] private TMP_Text cardNameText;
@@ -75,7 +76,7 @@ public class Card : MonoBehaviour
         tierImage.sprite = cardSO.CardTier;
         cardImage.sprite = cardSO.CardImage;
         cardBase.sprite = cardSO.CardBase;
-        power = cardSO.Power;
+        powerModifier = cardSO.PowerModifier;
 
         InitializeAttackList();
         UpdateAttackInfo();
@@ -87,6 +88,7 @@ public class Card : MonoBehaviour
 
         //Reiniciar el color de los ataques
         UnmarkAttacks();
+        ReactivateCard();
     }
 
     //Método para inicializar ataques
@@ -103,27 +105,51 @@ public class Card : MonoBehaviour
         attacksList[0].SetSelectable(true); // Marcar el primer ataque como seleccionable
         attacksList[1].SetSelectable(true); // Marcar el segundo ataque como seleccionable
 
-        attack1 = attacksList[0];
-        attack2 = attacksList[1];
+        //Limpiar y asignar los ataques por defecto a la carta
+        attacks.Clear();
+        attacks.Add(attacksList[0]);
+        attacks.Add(attacksList[1]);
+    }
+
+    //Método para cambiar un ataque por otro de la carta
+    public void ChangeAttack(int attackNumber, int newAttackIndex)
+    {
+        if (attackNumber <0 || attackNumber >= attacks.Count)
+        {
+            Debug.LogError("Número de ataque de carta inválido");
+            return;
+        }
+
+        if (newAttackIndex < 0 || newAttackIndex >= attacksList.Count)
+        {
+            Debug.LogError("Índice de ataque de la lista inválido");
+            return;
+        }
+
+        attacks[attackNumber] = attacksList[newAttackIndex];
+        UpdateAttackInfo();
     }
 
     void UpdateAttackInfo()
     {
-        attack1.InitializeAttackData(this);
-        attack2.InitializeAttackData(this);
+        foreach (AttackData attack in attacks)
+        {
+            attack.InitializeAttackData(this);
+        }
 
+        //!REVISAR CUANDO REVISE LA UI DE ATAQUES
         //Asignar los valores de los ataques
-        attack1NameText.text = attack1.attackName;
-        attack1DamageText.text = attack1.power.ToString();
-        attack1DescriptionText.text = attack1.description;
+        attack1NameText.text = attacks[0].attackName;
+        attack1DamageText.text = attacks[0].power.ToString();
+        attack1DescriptionText.text = attacks[0].description;
 
-        attack2NameText.text = attack2.attackName;
-        attack2DamageText.text = attack2.power.ToString();
-        attack2DescriptionText.text = attack2.description;
+        attack2NameText.text = attacks[1].attackName;
+        attack2DamageText.text = attacks[1].power.ToString();
+        attack2DescriptionText.text = attacks[1].description;
 
         //Crear los dados para cada ataque
-        CreateDice(attack1, diceSpace1);
-        CreateDice(attack2, diceSpace2);
+        CreateDice(attacks[0], diceSpace1);
+        CreateDice(attacks[1], diceSpace2);
     }
 
     //Método para crear los dados de un ataque
@@ -208,11 +234,35 @@ public class Card : MonoBehaviour
         {
             // Si la carta está muerta, desactivar su colisión
             GetComponent<BoxCollider2D>().enabled = false;
+            colorMask.color = new Color(1f, 0f, 0f, 0.5f); // Cambiar a un rojo semitransparente
         }
         else
         {
             // Si la carta no está muerta, activar su colisión
             GetComponent<BoxCollider2D>().enabled = true;
+        }
+    }
+
+    //Método para marcar la carta como usada
+    public void UseCard()
+    {
+        //Marcar la carta como usada
+        isUsed = true;
+
+        //Cambiar el color de la máscara para indicar que está usada
+        colorMask.color = new Color(0.5f, 0.5f, 0.5f, 0.5f); // Cambiar a un gris semitransparente
+        //Desactivar la colisión de la carta para que no se pueda seleccionar
+        GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public void ReactivateCard()
+    {
+        //Reiniciar la carta para el siguiente turno
+        isUsed = false;
+        if (!isDead)
+        {
+            colorMask.color = new Color(1f, 1f, 1f, 0f); // Volver al color original (transparente)
+            GetComponent<BoxCollider2D>().enabled = true; // Activar la colisión de la carta
         }
     }
 
@@ -251,23 +301,6 @@ public class Card : MonoBehaviour
         else if (attackNumber == 2)
         {
             ChangeAttackTextColor(2, Color.red);
-        }
-    }
-
-    //Método para obtener un ataque de la carta
-    public AttackData GetAttack(int attackNumber)
-    {
-        if (attackNumber == 1)
-        {
-            return attack1;
-        }
-        else if (attackNumber == 2)
-        {
-            return attack2;
-        }
-        else
-        {
-            return null; // Retorna null si el número de ataque es inválido
         }
     }
 

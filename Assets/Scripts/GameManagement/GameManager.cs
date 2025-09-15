@@ -5,11 +5,7 @@ public class GameManager : MonoBehaviour
     Card zoomCard; //Referencia a la carta que se ha hecho zoom
     public static GameManager instance; //Instancia del GameManager para el patrón Singleton
     private GamePhases gamePhase; //Fase del juego actual
-    public enum GamePhases
-    {
-        Combat,
-        DeckBuilding
-    }
+
     private void Awake()
     {
         // Asegurarse de que solo haya una instancia de GameManager

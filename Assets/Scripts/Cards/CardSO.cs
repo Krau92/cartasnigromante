@@ -17,14 +17,14 @@ public class CardSO : ScriptableObject
     // [SerializeField] private Sprite cardBack;
 
     [Header("Attacks")]
-    [SerializeField] private int power;
+    [SerializeField] private int powerModifier;
     [SerializeField] private List<AttackSO> attacksList; //Esta lista deben ser los ataques SO
 
     // Propiedades públicas de solo lectura para acceder a los datos
     public string CardName => cardName;
     public int BasePE => basePE;
     public int BasePV => basePV;
-    public int Power => power;
+    public int PowerModifier => powerModifier;
     public Sprite CardTier => cardTier;
     public Sprite CardImage => cardImage;
     // public Sprite CardBack => cardBack;

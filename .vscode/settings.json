@@ -56,7 +56,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Cartas Nigromante.sln",
+    "dotnet.defaultSolution": "CartasNigromante.sln",
     "github.copilot.advanced": {
         "file.editsEnabled": true,
         "file.creationEnabled": false

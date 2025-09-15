@@ -1,11 +1,20 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
-[CreateAssetMenu(fileName = "Objective Damage Effect", menuName = "Scriptable Objects/Battle Effects/Objective Damage Effect")]
+[Serializable]
 public class ObjectiveDamageEffect : BattleEffect
 {
-
-    public override void ExecuteEffect()
+    public override string EffectName => "Standard Damage";
+    public override void ExecuteEffect(Card user, List<Card> targets)
     {
-        BattleManager.instance.ApplyObjectivesDamage();
+        foreach (Card target in targets)
+        {
+            if (target != null && !target.IsDead)
+            {
+                int damage = power;
+                target.cardHealth.TakeDamage(damage);
+            }
+        }
     }
 }

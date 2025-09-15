@@ -9,21 +9,21 @@ public class AttackData
     public string description;
     bool isSelectable;
 
-    public TargetType targetType;
+    public TargetTypes targetType;
     public List<BattleEffect> battleEffects = new();
 
     public List<StatusAilment> objectiveStatusAilments = new();
     public List<StatusAilment> userStatusAilments = new();
     public List<int> valorDados; // Valores de los dados para el ataque
 
-    public void ExecuteAction(Card userCard)
+    public void ExecuteAction(Card user, List<Card> objectives)
     {
-        InitializeAttackData(userCard);
+        InitializeAttackData(user);
         //!FALTA APLICACIÓN DE MODIFICADORES AL ATTACK DATA
 
         foreach (var effect in battleEffects)
         {
-            effect.ExecuteEffect();
+            effect.ExecuteEffect(user, objectives);
         }
 
         //!PENSAR EN LA GESTIÓN DE ESTADOS ALTERADOS
@@ -41,7 +41,12 @@ public class AttackData
 
     public void InitializeAttackData(Card userCard)
     {
-        power = (int)(userCard.Power * battleAction.BaseMultiplier); // Asignar el poder del ataque
+        foreach(var battleEffect in battleEffects)
+        {
+            if(battleEffect is ObjectiveDamageEffect || battleEffect is ObjectiveDirectDamageEffect)
+                power = battleEffect.Power + userCard.PowerModifier; // Asignar el poder del usuario al efecto de daño
+            
+        }
         attackName = battleAction.AttackName; // Asignar el nombre del ataque
         description = battleAction.Description; // Asignar la descripción del ataque
         battleEffects = battleAction.GetBattleEffects(); // Asignar los efectos del ataque
