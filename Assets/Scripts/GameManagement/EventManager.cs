@@ -78,4 +78,12 @@ public class EventManager : MonoBehaviour
         // Invocar el evento de cambio de fase del jugador
         OnPlayerPhaseChanged?.Invoke(newPhase);
     }
+
+    //Evento para manejar cuando se ejecuta un ataque
+    public event Action OnAttackExecuted;
+    public void AttackExecuted()
+    {
+        // Invocar el evento de ejecución de ataque
+        OnAttackExecuted?.Invoke();
+    }
 }

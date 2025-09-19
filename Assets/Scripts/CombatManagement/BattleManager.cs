@@ -222,13 +222,13 @@ public class BattleManager : MonoBehaviour
     {
         if (playerPhase != PlayerPhases.Targeting)
             return;
-            
-            selectedObjectiveCard = card; // Asignar la carta objetivo
-            
-            objectivesCards.Clear(); // Limpiar la lista de cartas objetivo
-            objectivesCards = targetManager.GetTargetCards(selectedAttack); // Obtener las cartas objetivo en base al tipo de objetivo del ataque
-            AssignAttackData(selectedAttack, selectedCard);
-            //? Método que simule el efecto de lanzar el ataque
+
+        selectedObjectiveCard = card; // Asignar la carta objetivo
+
+        objectivesCards.Clear(); // Limpiar la lista de cartas objetivo
+        objectivesCards = targetManager.GetTargetCards(selectedAttack); // Obtener las cartas objetivo en base al tipo de objetivo del ataque
+        AssignAttackData(selectedAttack, selectedCard);
+        //? Método que simule el efecto de lanzar el ataque
     }
 
     //Método para asignar los datos correctos del ataque a ejecutar
@@ -241,12 +241,21 @@ public class BattleManager : MonoBehaviour
     //Método para ejecutar el ataque. Se ejecuta desde el botón de la interfaz
     public void ExecuteAttack()
     {
+        StartCoroutine(ExecuteAttackCoroutine());
+    }
+
+    //Corutina para ejecutar el ataque con una pequeña pausa
+    private IEnumerator ExecuteAttackCoroutine()
+    {
         foreach (var dice in selectedDices)
         {
             dice.UseDice(); // Marcar el dado como usado
         }
         casterCard.UseCard(); // Marcar la carta como usada
         selectedAttack.ExecuteAction(casterCard, objectivesCards); // Ejecutar el ataque
+        yield return new WaitForSeconds(1f); // Esperar 1 segundo antes de reiniciar las selecciones
+        EventManager.instance.AttackExecuted(); // Notificar que el ataque ha sido ejecutado
+        //! Más adelante, según las pasivas, devolver algún objeto con el attack executed?
         ResetAttackManaging(); // Reiniciar las selecciones después del ataque
     }
 

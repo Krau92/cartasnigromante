@@ -18,7 +18,6 @@ public class AttackData
 
     public void ExecuteAction(Card user, List<Card> objectives)
     {
-        InitializeAttackData(user);
         //!FALTA APLICACIÓN DE MODIFICADORES AL ATTACK DATA
 
         foreach (var effect in battleEffects)

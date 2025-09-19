@@ -255,6 +255,7 @@ public class Card : MonoBehaviour
         GetComponent<BoxCollider2D>().enabled = false;
     }
 
+    //Método para reactivar las cartas al inicio del turno
     public void ReactivateCard()
     {
         //Reiniciar la carta para el siguiente turno
@@ -263,8 +264,11 @@ public class Card : MonoBehaviour
         {
             colorMask.color = new Color(1f, 1f, 1f, 0f); // Volver al color original (transparente)
             GetComponent<BoxCollider2D>().enabled = true; // Activar la colisión de la carta
+            UpdateAttackInfo();
         }
     }
+
+
 
 
     //Método para cambiar el color del texto de un ataque

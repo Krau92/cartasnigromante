@@ -1103,7 +1103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1285711975}
-  - component: {fileID: 1285711974}
+  - component: {fileID: 1285711976}
   m_Layer: 0
   m_Name: TEST
   m_TagString: Untagged
@@ -1111,18 +1111,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1285711974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1285711973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04805f01a88b59344b3a0e5d21887d2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1285711975
 Transform:
   m_ObjectHideFlags: 0
@@ -1138,6 +1126,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1285711976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285711973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d348a41ea9308449d46bbcd78aa522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacks: []
+  passives:
+  - rid: 18077472398245949
+  references:
+    version: 2
+    RefIds:
+    - rid: 18077472398245949
+      type: {class: TestPassive, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!1001 &1358211110
 PrefabInstance:
   m_ObjectHideFlags: 0
