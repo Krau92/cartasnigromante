@@ -3,7 +3,7 @@ using System.Collections.Generic;
 [Serializable]
 public class AttackData
 {
-    AttackSO battleAction; // Referencia al ataque que se está ejecutando
+    AttackSO AttackSO; // Referencia al ataque que se está ejecutando
     public int power;
     public string attackName;
     public string description;
@@ -46,19 +46,19 @@ public class AttackData
                 power = battleEffect.Power + userCard.PowerModifier; // Asignar el poder del usuario al efecto de daño
             
         }
-        attackName = battleAction.AttackName; // Asignar el nombre del ataque
-        description = battleAction.Description; // Asignar la descripción del ataque
-        battleEffects = battleAction.GetBattleEffects(); // Asignar los efectos del ataque
-        objectiveStatusAilments = battleAction.GetObjectiveStatusAilments(); // Asignar los estados alterados del ataque
-        userStatusAilments = battleAction.GetUserStatusAilments(); // Asignar los estados alterados del ataque
-        valorDados = battleAction.GetValorDados(); // Asignar los valores de los dados del ataque
-        targetType = battleAction.Target; // Asignar el tipo de objetivo del ataque
+        attackName = AttackSO.AttackName; // Asignar el nombre del ataque
+        description = AttackSO.Description; // Asignar la descripción del ataque
+        battleEffects = AttackSO.GetBattleEffects(); // Asignar los efectos del ataque
+        objectiveStatusAilments = AttackSO.GetObjectiveStatusAilments(); // Asignar los estados alterados del ataque
+        userStatusAilments = AttackSO.GetUserStatusAilments(); // Asignar los estados alterados del ataque
+        valorDados = AttackSO.GetValorDados(); // Asignar los valores de los dados del ataque
+        targetType = AttackSO.Target; // Asignar el tipo de objetivo del ataque
     }
 
     //Método para asignar el SO del ataque
     public void SetBattleAction(AttackSO battleAction)
     {
-        this.battleAction = battleAction;
+        this.AttackSO = battleAction;
     }
 
     public void SetSelectable(bool selectable)

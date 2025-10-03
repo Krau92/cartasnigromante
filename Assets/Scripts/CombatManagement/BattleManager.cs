@@ -355,6 +355,7 @@ public class BattleManager : MonoBehaviour
             battlePhase = 0; // Volver a la primera fase si se ha superado la última
         }
 
+        EventManager.instance.BattlePhaseChanged(battlePhase);
         ExecutePhase();
     }
 

@@ -71,6 +71,14 @@ public class EventManager : MonoBehaviour
         OnDiceSelected?.Invoke(dice);
     }
 
+    //Evento para manejar el cambio de fase de la batalla
+    public event Action<BattlePhases> OnBattlePhaseChanged;
+    public void BattlePhaseChanged(BattlePhases newPhase)
+    {
+        // Invocar el evento de cambio de fase de la batalla
+        OnBattlePhaseChanged?.Invoke(newPhase);
+    }
+
     //Evento para manejar el cambio de fase del jugador
     public event Action<PlayerPhases> OnPlayerPhaseChanged;
     public void PlayerPhaseChanged(PlayerPhases newPhase)

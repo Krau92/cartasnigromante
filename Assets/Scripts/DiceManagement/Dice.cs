@@ -6,6 +6,7 @@ public class Dice : MonoBehaviour
 {
     public int value; // Valor del dado
     Image diceImage; // Imagen del dado
+    public bool selected { get; private set; } // Propiedad para saber si el dado está seleccionado
     bool used;
     public bool Used => used; // Propiedad para saber si el dado ha sido usado
     bool locked; //Para bloquear el reroll
@@ -60,6 +61,7 @@ public class Dice : MonoBehaviour
     {
         if (used) return; // Si el dado ya ha sido usado, no hacer nada
         diceImage.color = availableColor; // Cambiar el color del dado a disponible
+        selected = false;
     }
 
     //Método para seleccionar el dado
@@ -98,6 +100,7 @@ public class Dice : MonoBehaviour
     //Método para marcar el dado como seleccionado
     public void MarkAsSelected()
     {
+        selected = true;
         diceImage.color = selectedColor;
     }
 

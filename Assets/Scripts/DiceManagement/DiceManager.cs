@@ -167,7 +167,7 @@ public class DiceManager : MonoBehaviour
     {
         foreach (Dice dice in gameDices)
         {
-            if (!dice.Locked && !dice.Used)
+            if (!dice.Locked && !dice.Used && !dice.selected)
             {
                 dice.RollDice(); // Rollear el dado si no está bloqueado ni usado
             }
