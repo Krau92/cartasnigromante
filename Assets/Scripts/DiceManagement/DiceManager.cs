@@ -12,7 +12,7 @@ public class DiceManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); //!No tengo claro que quiero hacerlo persistente entre escenas
+            DontDestroyOnLoad(gameObject);
         }
         else
         {

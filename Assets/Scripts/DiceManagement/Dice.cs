@@ -78,9 +78,9 @@ public class Dice : MonoBehaviour
     {
         locked = true; // Bloquear el dado para que no pueda ser rolleteado
 
-        //!TEMPORAL
+     
         diceImage.color = lockedColor; // Cambiar el color del dado a bloqueado
-        //!UI DADO BLOQUEADO
+      
     }
 
     //Método para desbloquear el dado
@@ -88,11 +88,11 @@ public class Dice : MonoBehaviour
     {
         locked = false; // Desbloquear el dado
 
-        //!TEMPORAL
+      
         if (!used) diceImage.color = availableColor; // Cambiar el color del dado a disponible si no ha sido usado
         else diceImage.color = unavailableColor; // Cambiar el color del dado a no disponible si ya ha sido usado
 
-        //!UI DADO NORMAL
+ 
     }
 
     

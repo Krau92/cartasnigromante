@@ -19,9 +19,6 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    //! FALTA LA LOGICA DE CREAR LOS DECKS + METODOS DE DESBLOQUEAR CARTAS
-    //! Tal vez todo esto va en otra clase llamada diferente. Algo así como Deck Data??
-    //? SEPARAR DECKS POR TIERS?
     [SerializeField] private List<CardSO> completeDeckSO;
     [SerializeField] private List<Card> completeDeck;
 

@@ -25,10 +25,10 @@ public class AttackSOEditor : Editor
         // --- DIBUJO DEL DESPLEGABLE (FOLDOUT) ---
         // EditorGUILayout.Foldout devuelve 'true' si está expandido y 'false' si está contraído.
         // Actualizamos nuestra variable con el resultado de la interacción del usuario.
-        isEffectsListExpanded = EditorGUILayout.Foldout(isEffectsListExpanded, "Battle Effects", true, EditorStyles.foldoutHeader); // <-- ¡NUEVO!
+        isEffectsListExpanded = EditorGUILayout.Foldout(isEffectsListExpanded, "Battle Effects", true, EditorStyles.foldoutHeader); 
 
         // --- DIBUJO PERSONALIZADO DE LA LISTA (SOLO SI ESTÁ EXPANDIDO) ---
-        if (isEffectsListExpanded) // <-- ¡NUEVO! Condición para dibujar
+        if (isEffectsListExpanded) 
         {
             EditorGUI.indentLevel++; // Aumentamos la indentación para que se vea anidado
 

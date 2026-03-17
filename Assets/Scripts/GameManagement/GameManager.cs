@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
     {
         gamePhase = newPhase; //Cambiar la fase del juego
         Debug.Log("Game phase changed to: " + gamePhase);
-        //! Como llamo al inicio del combate? Evento o llamada directa? Lo llama el botón de next combat
     }
 
 }

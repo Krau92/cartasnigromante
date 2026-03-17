@@ -19,7 +19,7 @@ public class BattleManager : MonoBehaviour
     private AttackData executedAttack;
     private Card casterCard;
     private List<Card> objectivesCards = new();
-    //private List<Dice> usedDices = new(); //? De momento solo se añadirá uno cada vez hasta que se implementen ataques diferentes
+    //private List<Dice> usedDices = new(); 
 
     private BattlePhases battlePhase; // Fase de batalla actual
     private PlayerPhases playerPhase; // Fase de jugador actual
@@ -62,7 +62,6 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
-        //deckManager = FindAnyObjectByType<DeckManager>();  //DE MOMENTO NO SE USA
         ResetAttackManaging(); // Asegurarse de que no haya ataques seleccionados al iniciar
         StartBattle(); // Iniciar la batalla al comienzo del juego
     }
@@ -123,23 +122,7 @@ public class BattleManager : MonoBehaviour
         selectedDices.Add(dice); // Asignar el dado seleccionado
         selectedDices[0].MarkAsSelected(); // Marcar el dado como seleccionado
 
-        //!DESCOMENTAR SI SE IMPLEMENTAN ATAQUES DE VARIOS DADOS
-        /*else if(el ataque es de varios dados)
-        {
-            foreach(Dice dice in selectedDices)
-            {
-                if(dice == selectedDice) // Si el dado ya está seleccionado, deseleccionarlo
-                {
-                    dice.DeselectDice();
-                    selectedDices.Remove(dice);
-                    return;
-                }
-                selectedDices.Add(dice); // Añadir el dado a la lista de dados seleccionados
-                dice.MarkAsSelected(); // Marcar el dado como seleccionado
-            }
-         }
-         */
-
+       
         CheckDiceAssignment(); // Comprobar si el dado seleccionado es válido
     }
 
@@ -157,7 +140,6 @@ public class BattleManager : MonoBehaviour
         else
         {
             Debug.Log("No hay rerolls disponibles.");
-            //! Añadir lógica para notificar al jugador que no hay rerolls disponibles
         }
     }
 
@@ -183,23 +165,7 @@ public class BattleManager : MonoBehaviour
             }
         }
         DeselectDice(); // Si el dado no es válido, reiniciar la selección
-        //!Añadir texto de aviso
-        //}
-
-
-        /* else if(ataque de varios dados)
-        {
-        int totalValue = 0;
-        foreach(Dice dice in selectedDices)
-        {
-            totalValue += dice.value;
-        }
-        if(totalValue >= valor necesario)
-            ChangePlayerPhase(PlayerPhases.Targeting);
-            SelectObjectiveCard(null); //Para que selecione automaticamente si el ataque no requiere de un objetivo específico
-
-        }
-        */
+       
 
 
     }
@@ -255,7 +221,6 @@ public class BattleManager : MonoBehaviour
         selectedAttack.ExecuteAction(casterCard, objectivesCards); // Ejecutar el ataque
         yield return new WaitForSeconds(1f); // Esperar 1 segundo antes de reiniciar las selecciones
         EventManager.instance.AttackExecuted(); // Notificar que el ataque ha sido ejecutado
-        //! Más adelante, según las pasivas, devolver algún objeto con el attack executed?
         ResetAttackManaging(); // Reiniciar las selecciones después del ataque
     }
 
@@ -299,7 +264,7 @@ public class BattleManager : MonoBehaviour
     }
 
     //Método para ejecutar la fase de batalla actual
-    private void ExecutePhase() //! Falta toda la lógica
+    private void ExecutePhase()
     {
         switch (battlePhase)
         {
@@ -310,13 +275,11 @@ public class BattleManager : MonoBehaviour
                 break;
 
             case BattlePhases.PlayerAttack:
-                //!Mostrar carteles de interfaz para cada fase
                 ChangePlayerPhase(PlayerPhases.Idle);
                 ResetAttackManaging(); // Reiniciar las selecciones al inicio de la fase de ataque del jugador
                 ResetRerolls(); // Reiniciar los rerolls disponibles al inicio de la fase de ataque del jugador
                 DiceManager.instance.ResetDices(); // Reiniciar todos los dados antes de rollear
                 DiceManager.instance.RollAllGameDices();
-                //! Mostrar botón de pasar de fase
 
                 break;
 
@@ -330,8 +293,6 @@ public class BattleManager : MonoBehaviour
                 DeckManager.instance.ReactivatePlayerDeck(); // Reactivar todas las cartas del mazo del jugador antes de aplicar por si los enemigos te stunean ese turno
                 Debug.Log("Applying effects phase");
 
-                //Por último comprobar si se ha ganado o perdido la partida
-                //!COMPROBAR VICTORIA O DERROTA
 
                 NextPhase();
                 break;
@@ -341,7 +302,6 @@ public class BattleManager : MonoBehaviour
     //Corutina para simular la declaración del enemigo
     private IEnumerator DeclaringEnemyCoroutine()
     {
-        //!IR MOSTRANDO LA DECLARACIÓN DEL ENEMIGO
         yield return new WaitForSeconds(2f); // Esperar 2 segundos
         NextPhase();
     }
