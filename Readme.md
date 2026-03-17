@@ -1,6 +1,6 @@
 # Turn-Based Card Game Prototype
 
-![Gameplay Demo](Imatges_Readme/Cartes.gif)
+![Gameplay Demo](Readme_Images/Cartes.gif)
 
 ## Overview
 A turn-based card combat prototype developed in **Unity (C#)**. This was my very first project on my own. As RPGs structure are complex I started to study about clean code and making scalable code. As it's an experimental prototype, there are both nice and improvable architecture decisions. It helped a lot to understand how to split gameplay logic into single responsibilities classes.
@@ -11,7 +11,7 @@ It's important to know the background, when I started this project I had just 1 
 ### Creating an easy to configure system to create cards
 The first priority is to made the card creation easy for everyone who doesn't have programming experience, focused on the possibility that game designers could create and test cards without coding. The use of Data-Driven objects (ScriptableObjects in Unity) made it possible structuring all the information needed to create a card. It's been also used the same structure for the attacks assigned to the card. Each attack let the designer to put as effects as wanted and modify the power to balance the game.
 
-*CODE EXAMPLE:*
+**CODE EXAMPLE:**
 
 ```csharp
 using System.Collections.Generic;
@@ -52,7 +52,7 @@ public class CardSO : ScriptableObject
 ## Using polymorfism and heritance to make the code scalable
 In order to make this easy card creation work and keep the gameplay logic robust I used a system of heritance and polymorfism. Using this each attack can be configure with as many effects as the designer wants.
 
-*POLYMORFISM EXAMPLE*
+**POLYMORFISM EXAMPLE**
 ```csharp
 using System;
 using System.Collections.Generic;
@@ -93,3 +93,6 @@ public class ObjectiveDamageEffect : BattleEffect
 With this example, every battle effect can be assigned and called its effect with ExecuteEffect(Card user, List<Card> targets).
 
 ## Future improvements
+* **Targeting Logic (Strategy Pattern):** The `TargetManager` currently uses a massive `switch` statement to find valid targets.
+* **Dependency Web:** The `BattleManager` and `DeckManager` are coupled via instances. I would use the `EventManager` or Dependency Injection to decouple the turn sequence from the deck management.
+* **Hardcoded Values:** Remove magic numbers on the initial card place and replace them with relative anchors.
