@@ -1,13 +1,19 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[CreateAssetMenu(fileName = "Self Heal Effect", menuName = "Scriptable Objects/Battle Effects/Self Heal Effect")]
+[Serializable]
 public class SelfHealEffect : BattleEffect
 {
-    public override void ExecuteEffect()
+    public override string EffectName => "Self Heal";
+    public override void ExecuteEffect(Card user, List<Card> targets)
     {
-        BattleManager.instance.ApplySelfHeal();
+        if (user != null && !user.IsDead)
+        {
+            int healAmount = power;
+            user.cardHealth.Heal(healAmount);
+        }
     }
-    
+
 
 }

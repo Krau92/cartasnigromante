@@ -1,11 +1,17 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
-[CreateAssetMenu(fileName = "Direct Damage Effect", menuName = "Scriptable Objects/Battle Effects/Direct Damage Effect")]
+[Serializable]
 public class SelfDirectDamageEffect : BattleEffect
 {
-
-    public override void ExecuteEffect()
+    public override string EffectName => "Self Direct Damage";
+    public override void ExecuteEffect(Card user, List<Card> targets)
     {
-        BattleManager.instance.ApplySelfDirectDamage();
+        if (user != null && !user.IsDead)
+        {
+            int damage = power;
+            user.cardHealth.TakeDirectDamage(damage);
+        }
     }
 }

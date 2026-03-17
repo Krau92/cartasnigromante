@@ -1,12 +1,21 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[CreateAssetMenu(fileName = "Objective Heal Effect", menuName = "Scriptable Objects/Battle Effects/Objective Heal Effect")]
+[Serializable]
 public class ObjectiveHealEffect : BattleEffect
 {
-    public override void ExecuteEffect()
+    public override string EffectName => "ObjectiveHeal";
+    public override void ExecuteEffect(Card user, List<Card> targets)
     {
-        BattleManager.instance.ApplyHealObjectivesDamage();
+        foreach (Card target in targets)
+        {
+            if (target != null && !target.IsDead)
+            {
+                int healAmount = power;
+                target.cardHealth.Heal(healAmount);
+            }
+        }
     }
 
 }

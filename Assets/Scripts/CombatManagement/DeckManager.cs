@@ -19,9 +19,6 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    //! FALTA LA LOGICA DE CREAR LOS DECKS + METODOS DE DESBLOQUEAR CARTAS
-    //! Tal vez todo esto va en otra clase llamada diferente. Algo así como Deck Data??
-    //? SEPARAR DECKS POR TIERS?
     [SerializeField] private List<CardSO> completeDeckSO;
     [SerializeField] private List<Card> completeDeck;
 
@@ -94,6 +91,15 @@ public class DeckManager : MonoBehaviour
         {
             enemyDeck[i].MoveCardToPosition(cardPositions.GetEnemyCardPosition(enemyDeck, i));
             yield return new WaitForSeconds(0.5f); // Añadir un pequeño retraso para que se vea el movimiento
+        }
+    }
+
+    //Método para reactivar todas las cartas del mazo del jugador
+    public void ReactivatePlayerDeck()
+    {
+        foreach (Card card in playerDeck)
+        {
+            card.ReactivateCard();
         }
     }
 

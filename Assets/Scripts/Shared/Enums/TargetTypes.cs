@@ -1,4 +1,4 @@
-public enum TargetType
+public enum TargetTypes
 {
     Self,
     Enemy,

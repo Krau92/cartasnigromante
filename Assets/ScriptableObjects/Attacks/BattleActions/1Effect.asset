@@ -10,14 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1475b16a2a116694593f1c34905058a4, type: 3}
-  m_Name: HealAttack
+  m_Name: 1Effect
   m_EditorClassIdentifier: 
-  attackName: heal *1.5
-  description: 
-  baseMultiplier: 1.5
-  targetType: 2
-  valorDados: 01000000020000000300000004000000
+  attackName: 1Effect
+  description: standard dmg
+  baseMultiplier: 0
+  targetType: 1
+  valorDados: 0100000002000000
   battleEffects:
-  - {fileID: 11400000, guid: aa7aca366885f2947a8e401980eb6ff5, type: 2}
+  - rid: 18077316497539152
   objectiveStatusAilments: []
   userStatusAilments: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 18077316497539152
+      type: {class: ObjectiveDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        power: 20

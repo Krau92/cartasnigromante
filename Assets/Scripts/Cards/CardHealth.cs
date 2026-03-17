@@ -11,6 +11,7 @@ public class CardHealth : MonoBehaviour
     //Propiedades de la carta
     private int maxPV;
     private int currentPV;
+    public int CurrentPV => currentPV;
     private int basePE;
     private int currentPE;
 

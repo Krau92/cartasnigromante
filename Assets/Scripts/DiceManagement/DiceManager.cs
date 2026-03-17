@@ -12,7 +12,7 @@ public class DiceManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); //!No tengo claro que quiero hacerlo persistente entre escenas
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -167,11 +167,10 @@ public class DiceManager : MonoBehaviour
     {
         foreach (Dice dice in gameDices)
         {
-            if (!dice.Locked && !dice.Used)
+            if (!dice.Locked && !dice.Used && !dice.selected)
             {
                 dice.RollDice(); // Rollear el dado si no está bloqueado ni usado
             }
-            if (BattleManager.instance.AvailableRerolls <= 0) dice.UnlockDice(); // Desbloquear el dado si ya no quedan rerolls disponibles
         }
     }
 

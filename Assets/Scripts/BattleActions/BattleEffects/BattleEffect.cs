@@ -1,7 +1,11 @@
 using System;
-using UnityEngine;
+using System.Collections.Generic;
 
-public abstract class BattleEffect : ScriptableObject
+[Serializable]
+public abstract class BattleEffect 
 {
-    public abstract void ExecuteEffect();
+    public int power;
+    public int Power => power;
+    public abstract string EffectName { get; }
+    public abstract void ExecuteEffect(Card user, List<Card> targets);
 }
